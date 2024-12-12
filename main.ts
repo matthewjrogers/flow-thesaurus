@@ -2,13 +2,15 @@ import { App, Plugin, PluginSettingTab, Setting, WorkspaceLeaf } from 'obsidian'
 import { FlowThesaurusView, VIEW_TYPE_FLOW_THESAURUS } from './flow-view';
 
 interface FlowThesaurusSettings {
-    api_key: string;
+    thesaurus_key: string;
+	dictionary_key: string;
     synonym_api_url: string;
     dictionary_api_url: string;
 }
 
 const DEFAULT_SETTINGS: FlowThesaurusSettings = {
-    api_key: '',
+    thesaurus_key: '',
+	dictionary_key: '',
     synonym_api_url: 'https://www.dictionaryapi.com/api/v3/references/thesaurus/json/',
     dictionary_api_url: 'https://www.dictionaryapi.com/api/v3/references/collegiate/json/'
 }
@@ -75,14 +77,25 @@ class SampleSettingTab extends PluginSettingTab {
         containerEl.empty();
                 
         new Setting(containerEl)
-            .setName('API Key')
+            .setName('Thesaurus API Key')
 			.setDesc('Secret API key from Merriam-Webster API')
 			.addText(text => text
                 .setPlaceholder('Enter your API key')
-                .setValue(this.plugin.settings.api_key)
+                .setValue(this.plugin.settings.thesaurus_key)
                 .onChange(async (value) => {
-                    this.plugin.settings.api_key = value;
+                    this.plugin.settings.thesaurus_key = value;
                     await this.plugin.saveSettings();
                 }));
+
+		new Setting(containerEl)
+				.setName('Dictionary API Key')
+				.setDesc('Secret API key from Merriam-Webster API')
+				.addText(text => text
+					.setPlaceholder('Enter your API key')
+					.setValue(this.plugin.settings.dictionary_key)
+					.onChange(async (value) => {
+						this.plugin.settings.dictionary_key = value;
+						await this.plugin.saveSettings();
+					}));
     }
 }
