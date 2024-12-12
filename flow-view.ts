@@ -30,11 +30,12 @@ export class FlowThesaurusView extends ItemView {
     const toggleSlider = toggleLabel.createEl('span', { cls: 'slider round' });
 
     let isDictionary = false;
-
     toggleInput.addEventListener('change', () => {
       isDictionary = toggleInput.checked;
-      console.log('Dictionary Mode:', isDictionary);
+      // toggleSlider.innerText = isDictionary ? 'definitions' : 'synonyms';
+      // console.log('Dictionary Mode:', isDictionary);
     });
+    
 
     // Create a text input with an in-line submit button
     const formContainer = container.createEl('div', { cls: 'form-container' });
@@ -136,6 +137,7 @@ function renderThesaurusResults(data: any[], resultsDiv: HTMLDivElement) {
 
     const defHeader = document.createElement('h3');
     defHeader.innerText = 'Sense of:';
+    entryDiv.appendChild(defHeader);
     // Definitions and Senses
     entry.def.forEach((def: { sseq: any[]; }) => {
       let count = 0;
@@ -148,6 +150,8 @@ function renderThesaurusResults(data: any[], resultsDiv: HTMLDivElement) {
         }
       });
     });
+    const breakElement = document.createElement('hr');
+    entryDiv.appendChild(breakElement);
 
     resultsDiv.appendChild(entryDiv);
   });
