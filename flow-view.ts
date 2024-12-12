@@ -41,6 +41,13 @@ export class FlowThesaurusView extends ItemView {
     const inputField = formContainer.createEl('input', { type: 'text', cls: 'text-input' });
     const submitButton = formContainer.createEl('button', { text: 'Submit', cls: 'submit-button' });
 
+        // Add event listener to trigger submit button on Enter key press
+    inputField.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') {
+        submitButton.click();
+      }
+    });
+
     const resultsDiv = container.createEl('div', { cls: 'results' });
 
     submitButton.addEventListener('click', async () => {
@@ -70,9 +77,6 @@ export class FlowThesaurusView extends ItemView {
         } else {
           renderThesaurusResults(data, resultsDiv);
         }
-        const fileName = `${inputValue}.json`;
-        await this.app.vault.create(fileName, JSON.stringify(data, null, 2));
-        new Notice(`Response saved to ${fileName}`);
       } catch (error) {
         new Notice(`Failed to fetch data: ${error.message}`);
       }
