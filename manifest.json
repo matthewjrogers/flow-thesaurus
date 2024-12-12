@@ -1,0 +1,9 @@
+{
+	"id": "flow-thesaurus",
+	"name": "Flow thesaurus",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Integrated thesaurus and dictionary powered by Merriam-Webster API.",
+	"author": "M Rogers",
+	"isDesktopOnly": true
+}
