@@ -45,11 +45,18 @@ export default class FlowThesaurusPlugin extends Plugin {
             (leaf) => new FlowThesaurusView(leaf, this.settings)
         );
       
-        this.addRibbonIcon('dice', 'Activate view', () => {
+        this.addRibbonIcon('book-type', 'Open Flow-Thesaurus', () => {
             this.activateView();
         });
+        this.addCommand({
+            id: 'open-flow-thesaurus',
+            name: 'Open Flow-Thesaurus',
+            callback: () => {
+                this.activateView();
+            },
+        });
 
-        this.addSettingTab(new SampleSettingTab(this.app, this));
+        this.addSettingTab(new FlowThesaurusSettingTab(this.app, this));
     }
 
     onunload() {}
@@ -63,7 +70,7 @@ export default class FlowThesaurusPlugin extends Plugin {
     }
 }
 
-class SampleSettingTab extends PluginSettingTab {
+class FlowThesaurusSettingTab extends PluginSettingTab {
     plugin: FlowThesaurusPlugin;
 
     constructor(app: App, plugin: FlowThesaurusPlugin) {
@@ -81,7 +88,7 @@ class SampleSettingTab extends PluginSettingTab {
 			.setDesc('Secret API key from Merriam-Webster API')
 			.addText(text => text
                 .setPlaceholder('Enter your API key')
-                .setValue(this.plugin.settings.thesaurus_key)
+                // .setValue(this.plugin.settings.thesaurus_key)
                 .onChange(async (value) => {
                     this.plugin.settings.thesaurus_key = value;
                     await this.plugin.saveSettings();
@@ -92,10 +99,30 @@ class SampleSettingTab extends PluginSettingTab {
 				.setDesc('Secret API key from Merriam-Webster API')
 				.addText(text => text
 					.setPlaceholder('Enter your API key')
-					.setValue(this.plugin.settings.dictionary_key)
+					// .setValue(this.plugin.settings.dictionary_key)
 					.onChange(async (value) => {
 						this.plugin.settings.dictionary_key = value;
 						await this.plugin.saveSettings();
 					}));
+        new Setting(containerEl)
+                .setName('Dictionary URL')
+                .setDesc('Select the Merriam-Webster dictionary you want to use (Default is Collegiate).')
+                .addText(text => text
+                    .setPlaceholder('Enter your API key')
+                    .setValue(this.plugin.settings.dictionary_api_url)
+                    .onChange(async (value) => {
+                        this.plugin.settings.dictionary_api_url = value;
+                        await this.plugin.saveSettings();
+                    }));
+        new Setting(containerEl)
+                .setName('Thesaurus URL')
+                .setDesc('Select the Merriam-Webster thesaurus you want to use.')
+                .addText(text => text
+                    .setPlaceholder('Enter your API key')
+                    .setValue(this.plugin.settings.dictionary_api_url)
+                    .onChange(async (value) => {
+                        this.plugin.settings.dictionary_api_url = value;
+                        await this.plugin.saveSettings();
+                    }));
     }
 }
