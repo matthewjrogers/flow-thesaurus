@@ -16,7 +16,7 @@ As a writer, I find that jumping to the internet for a quick synonym or word def
 
 ## Merriam-Webster API Keys
 
-To use this plugin, you need to generate API keys for the Merriam-Webster Dictionary and Thesaurus APIs.
+To use this plugin, you need to generate API keys for the Merriam-Webster Dictionary and Thesaurus APIs. Merriam-Webster makes their APIs available for non-commercial user and provides more useful results than many file-based options.
 
 ### Generating API Keys
 
