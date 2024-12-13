@@ -21,7 +21,7 @@ export class FlowThesaurusView extends ItemView {
   async onOpen() {
     const container = this.containerEl.children[1];
     container.empty();
-    container.createEl('h4', { text: 'Flow Thesaurus' });
+    container.createEl('h4', { text: 'Flow Thesaurus' , cls: 'flow-thesaurus-header' });
 
     // Create a toggle slider
     const toggleContainer = container.createEl('div', { cls: 'toggle-container' });
@@ -32,6 +32,12 @@ export class FlowThesaurusView extends ItemView {
     let isDictionary = false;
     toggleInput.addEventListener('change', () => {
       isDictionary = toggleInput.checked;
+      // update flow-thesaurus-header text
+      const header = container.querySelector('.flow-thesaurus-header');
+      if (header) {
+        (header as HTMLElement).innerText = isDictionary ? 'Flow Dictionary' : 'Flow Thesaurus';
+      }
+      
       // toggleSlider.innerText = isDictionary ? 'definitions' : 'synonyms';
       // console.log('Dictionary Mode:', isDictionary);
     });
